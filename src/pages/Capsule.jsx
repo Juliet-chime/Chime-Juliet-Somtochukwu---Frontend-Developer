@@ -14,6 +14,7 @@ import { fetchUpcomingCapsule, getUpcomingCapsuleSelector } from "../services/sl
 import EmptyState from "../assets/component/emptyState";
 import Loader from "../assets/component/loader";
 import { useNavigate } from "react-router-dom";
+import { fetchPastCapsule, getPastCapsuleSelector } from "../services/slice/capsule/pastCapsule";
 
 
 let PageSize = 10;
@@ -27,6 +28,11 @@ const Capsule = () => {
   const [type, setType] = useState('');
   const [status, setStatus] = useState('');
   const [date, setDate] = useState(new Date());
+
+  const capsule = useSelector(getCapsuleSelector)
+  const upcomingCapsule = useSelector(getUpcomingCapsuleSelector)
+  const pastCapsule = useSelector(getPastCapsuleSelector)
+  const totalCount = capsule?.capsules?.length
 
   const onHandleType = (e) => {
     console.log(e.target.value)
@@ -68,10 +74,6 @@ const Capsule = () => {
 
   }
 
-  const capsule = useSelector(getCapsuleSelector)
-  const upcomingCapsule = useSelector(getUpcomingCapsuleSelector)
-  const totalCount = capsule?.capsules?.length
-
   const updatedCapsule = () => {
     const data = capsule?.capsules.map((datas) => {
       return {
@@ -95,10 +97,22 @@ const Capsule = () => {
     return sortData(data, { ascending: false })
   }
 
+  const updatedPastCapsule = () => {
+    const data = pastCapsule?.pastCapsules.map((datas) => {
+      return {
+        ...datas,
+        original_launch: datas?.original_launch ? datas.original_launch : new Date()
+      }
+    })
+
+    return sortData(data, { ascending: false })
+  }
+
   const navigateOneCapsule = (id) => {
     navigate(`/capsule/${id}`)
   }
   const [currentTableData] = useCurrentData(updatedCapsule(), currentPage, PageSize)
+  const [pastCapsules] = useCurrentData(updatedPastCapsule(), currentPage, PageSize)
 
   useEffect(() => {
     async function getCapsule() {
@@ -106,7 +120,8 @@ const Capsule = () => {
         await Promise.allSettled(
           [
             dispatch(fetchCapsule()),
-            dispatch(fetchUpcomingCapsule())
+            dispatch(fetchUpcomingCapsule()),
+            dispatch(fetchPastCapsule())
           ]
         )
       } catch (e) {
@@ -157,10 +172,31 @@ const Capsule = () => {
           <TitleHeader title='Upcoming Capsules' />
           <div className="grid grid-cols-2 max-[300px]:grid-cols-1 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 2xl:grid-cols-5 p-2 gap-3">
             {
-              updatedUpComingCapsule().map((item, idx) => <CapsuleItem key={idx} item={item} />)
+              updatedUpComingCapsule().map((item, idx) => <CapsuleItem key={idx} item={item} onClick={() => navigateOneCapsule(item?.capsule_serial)}/>)
             }
           </div>
         </> : null}
+      </>
+
+      <>
+        <TitleHeader title='Past Capsules' />
+        {
+          pastCapsules.length > 0 ? <>
+            {capsule?.loading ? <Loader /> : <div>
+              <div className="grid grid-cols-2 max-[300px]:grid-cols-1 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 2xl:grid-cols-5 p-2 gap-3">
+                {
+                  pastCapsules.map((item, idx) => <CapsuleItem key={idx} item={item} onClick={() => navigateOneCapsule(item?.capsule_serial)} />)
+                }
+              </div>
+              <Pagination
+                currentPage={currentPage}
+                totalCount={pastCapsule?.pastCapsules?.length}
+                pageSize={PageSize}
+                onPageChange={page => setCurrentPage(page)}
+              />
+            </div>}
+          </> : <EmptyState name={`Capsules`} />
+        }
       </>
     </div>
 

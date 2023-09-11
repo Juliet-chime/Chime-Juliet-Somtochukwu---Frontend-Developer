@@ -17,7 +17,7 @@ const DetailCapsule = () => {
 
   const dispatch = useDispatch();
 
-  const { capsule } = useSelector(getOneCapsuleSelector)
+  const capsule = useSelector(getOneCapsuleSelector)
 
 
   const imgSrc = capsule?.type === 'Dragon 1.0' ? dragon1 : capsule?.type === 'Dragon 1.1' ? dragon2 : capsule?.type === 'Dragon 2.0' ? dragon3 : dragon4
@@ -59,15 +59,17 @@ const DetailCapsule = () => {
               <CapsuleInfo title={'Status'} value={capitalizeFLetter(capsule?.status)} />
             </div>
           </div>
-          <div className='mt-4'>
+          {
+           capsule?.details !== null  ?  <div className='mt-4'>
             <CapsuleInfo title={'Details'} value={capitalizeFLetter(capsule?.details)} />
-          </div>
+           </div>:null
+          }
           <div>
-            {capsule?.missions.length > 0 ? <>
+            {capsule?.missions ? <>
 
               <h1 className='mb-2 mt-4 text-[12px] md:text-[20px] font-bold text-[#ffffff80]'>Misson</h1>
               {
-                capsule?.missions.map((item, idx) => <CapsuleInfo title={item.name} value={item?.flight} key={idx} />)
+                capsule?.missions?.map((item, idx) => <CapsuleInfo title={item.name} value={item?.flight} key={idx} />)
               }
             </> : null}
           </div>

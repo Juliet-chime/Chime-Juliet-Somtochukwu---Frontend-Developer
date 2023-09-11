@@ -29,7 +29,7 @@ export const getOneCapsuleSlice = createSlice({
 const { getOneCapsule, getOneCapsuleSuccess, getOneCapsuleFailure } = getOneCapsuleSlice.actions;
 
 // A selector
-export const getOneCapsuleSelector = (state) => state.capsule;
+export const getOneCapsuleSelector = (state) => state.capsule.capsule;
 
 // The reducer
 export default getOneCapsuleSlice.reducer;

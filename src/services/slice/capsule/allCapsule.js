@@ -29,13 +29,13 @@ export const getCapsulesSlice = createSlice({
 const { getCapsule, getCapsuleSuccess, getCapsuleFailure } = getCapsulesSlice.actions;
 
 // A selector
-export const getCapsuleSelector = (state) => state.capsule;
+export const getCapsuleSelector = (state) => state.capsules;
 
 // The reducer
 export default getCapsulesSlice.reducer;
 
 // api call action
-export const fetchCapsule = (params=null) => (dispatch) => {
+export const fetchCapsule = (params = null) => (dispatch) => {
   dispatch(getCapsule());
   return makeAPICall({
     path: `/capsules`,

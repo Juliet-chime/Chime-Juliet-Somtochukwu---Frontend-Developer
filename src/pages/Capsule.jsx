@@ -66,11 +66,11 @@ const Capsule = () => {
 
   const onHandleSearch = async () => {
 
-    if (type === 'all' || status === 'all') {
-      await dispatch(fetchCapsule())
-    } else {
-      await dispatch(fetchCapsule({ status, type, original_launch }))
-    }
+    // if (type === 'all' || status === 'all') {
+    //   await dispatch(fetchCapsule())
+    // } else {
+      await dispatch(fetchCapsule({ status, type, }))
+    // }
 
   }
 
@@ -111,7 +111,7 @@ const Capsule = () => {
   const navigateOneCapsule = (id) => {
     navigate(`/capsule/${id}`)
   }
-  const [currentTableData] = useCurrentData(updatedCapsule(), currentPage, PageSize)
+  const [allCapsule] = useCurrentData(updatedCapsule(), currentPage, PageSize)
   const [pastCapsules] = useCurrentData(updatedPastCapsule(), currentPage, PageSize)
 
   useEffect(() => {
@@ -149,11 +149,11 @@ const Capsule = () => {
       <>
         <TitleHeader title='Discover Capsules' />
         {
-          currentTableData.length > 0 ? <>
+          allCapsule.length > 0 ? <>
             {capsule?.loading ? <Loader /> : <div>
               <div className="grid grid-cols-2 max-[300px]:grid-cols-1 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 2xl:grid-cols-5 p-2 gap-3">
                 {
-                  currentTableData.map((item, idx) => <CapsuleItem key={idx} item={item} onClick={() => navigateOneCapsule(item?.capsule_serial)} />)
+                  allCapsule.map((item, idx) => <CapsuleItem key={idx} item={item} onClick={() => navigateOneCapsule(item?.capsule_serial)} />)
                 }
               </div>
               <Pagination

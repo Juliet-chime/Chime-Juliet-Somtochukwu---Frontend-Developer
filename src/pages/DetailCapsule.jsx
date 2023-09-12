@@ -6,10 +6,10 @@ import dragon1 from '../assets/image/dragon1.jpg'
 import dragon2 from '../assets/image/dragon2.jpeg'
 import dragon3 from '../assets/image/dragon3.jpg'
 import dragon4 from '../assets/image/dragon4.jpg'
-import { CapsuleInfo } from '../assets/component/capsule/CapsuleItem';
 import { capitalizeFLetter } from '../utils/dataFormat';
 import { parseDate } from '../utils/dateFormat';
 import TitleHeader from '../assets/component/TitleHeader';
+import SpaceItem from '../assets/component/capsule/SpaceItem';
 
 const DetailCapsule = () => {
 
@@ -43,25 +43,25 @@ const DetailCapsule = () => {
         </div>
         <div className='flex flex-col justify-center'>
           <div className='grid grid-cols-2 md:grid-cols-3 gap-4'>
-            <div>
-              <CapsuleInfo title={'Capsule_serial'} value={capsule?.capsule_serial} />
-            </div>
-            <div>
-              <CapsuleInfo title={'Type'} value={capsule?.type} />
-            </div>
-            <div>
-              <CapsuleInfo title={'Landings'} value={capsule?.landings} />
-            </div>
-            <div>
-              <CapsuleInfo title={'Date launch'} value={parseDate(capsule?.original_launch, { separator: '/', iso: true })} />
-            </div>
-            <div>
-              <CapsuleInfo title={'Status'} value={capitalizeFLetter(capsule?.status)} />
-            </div>
+            
+              <SpaceItem title={'Capsule_serial'} value={capsule?.capsule_serial} />
+            
+           
+              <SpaceItem title={'Type'} value={capsule?.type} />
+            
+          
+              <SpaceItem title={'Landings'} value={capsule?.landings} />
+            
+           
+              <SpaceItem title={'Date launch'} value={parseDate(capsule?.original_launch, { separator: '/', iso: true })} />
+           
+           
+              <SpaceItem title={'Status'} value={capitalizeFLetter(capsule?.status)} />
+           
           </div>
           {
            capsule?.details !== null  ?  <div className='mt-4'>
-            <CapsuleInfo title={'Details'} value={capitalizeFLetter(capsule?.details)} />
+            <SpaceItem title={'Details'} value={capitalizeFLetter(capsule?.details)} />
            </div>:null
           }
           <div>
@@ -69,7 +69,7 @@ const DetailCapsule = () => {
 
               <h1 className='mb-2 mt-4 text-[12px] md:text-[20px] font-bold text-[#ffffff80]'>Misson</h1>
               {
-                capsule?.missions?.map((item, idx) => <CapsuleInfo title={item.name} value={item?.flight} key={idx} />)
+                capsule?.missions?.map((item, idx) => <SpaceItem title={item.name} value={item?.flight} key={idx} />)
               }
             </> : null}
           </div>

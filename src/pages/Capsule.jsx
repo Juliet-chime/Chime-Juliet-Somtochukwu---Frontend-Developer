@@ -18,6 +18,7 @@ import { fetchPastCapsule, getPastCapsuleSelector } from "../services/slice/caps
 
 
 let PageSize = 10;
+let original_launch=''
 
 const Capsule = () => {
 
@@ -27,7 +28,7 @@ const Capsule = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [type, setType] = useState('');
   const [status, setStatus] = useState('');
-  const [date, setDate] = useState(new Date());
+  const [launchDate, setLaunchDate] = useState('');
 
   const capsule = useSelector(getCapsuleSelector)
   const upcomingCapsule = useSelector(getUpcomingCapsuleSelector)
@@ -56,20 +57,53 @@ const Capsule = () => {
     // }
   }
 
+  // const onHandleDateChange = (date,e) => {
+  //   console.log({date, val: e})
+  //   // const newDate = new Date(date)
+  //   // console.log(newDate)
+  //   // console.log(new Date(date).toISOString())
+  //   // setDate(new Date(newDate))
+  // }
+
+
+
   const onHandleDateChange = (date) => {
-    const newDate = new Date(date).toISOString()
-    console.log(new Date(date).toISOString())
-    setDate(new Date(newDate))
+    console.log({date,})
+    setLaunchDate(new Date(date))
+
+//     let x = (new Date(date)).getTimezoneOffset() * 60000; 
+//     let ddd=  new Date(date).getTime()
+// let localISOTime = (new Date(ddd - x)).toISOString();
+// let timeer = localISOTime
+
+// console.log({x,localISOTime,timeer,d:Date.now()})
+// console.log(new Date(date).getTimezoneOffset())
   }
 
-  const original_launch = date.toISOString()
+  // const original_launch = date.toISOString()
+
+  // console.log(original_launch)
+
+  // const original_launch = new Date(launchDate).toISOString()
+  // console.log(original_launch)
+
+  if(launchDate){
+     let x = (new Date(launchDate)).getTimezoneOffset() * 60000; 
+let dy=  new Date(launchDate).getTime()
+//let localISOTime = (new Date(ddd - x)).toISOString();
+// let timeer = localISOTime
+
+    original_launch = new Date(dy - x).toISOString()
+    //new Date(launchDate).toISOString()
+     console.log(original_launch)
+  }
 
   const onHandleSearch = async () => {
 
     // if (type === 'all' || status === 'all') {
     //   await dispatch(fetchCapsule())
     // } else {
-      await dispatch(fetchCapsule({ status, type, }))
+      await dispatch(fetchCapsule({ status, type,original_launch }))
     // }
 
   }
@@ -141,7 +175,13 @@ const Capsule = () => {
           <CustomSelect options={capsuleStatus} placeholder='filter by status' onChange={onHandleStatus} />
         </div>
         <div className="bg-[#040D12] rounded-md">
-          <CustomDatePicker selected={date} onChange={onHandleDateChange} placeholder='select date' />
+        <CustomDatePicker selected={launchDate} value={launchDate} onChange={onHandleDateChange} placeholderText='Select a date' >
+          <button className="bg-[#14171f] p-2 rounded-sm text-[white] cursor-pointer font-semibold" onClick={()=>{
+            setLaunchDate('')
+            original_launch=''
+          }}>Clear filter</button>
+        </CustomDatePicker>
+          {/* <CustomDatePicker selected={date} onSelect={onHandleDateChange} placeholder='select date' /> */}
         </div>
         <CustomButton text='Apply Filter' onClick={onHandleSearch} />
       </div>
@@ -188,12 +228,14 @@ const Capsule = () => {
                   pastCapsules.map((item, idx) => <CapsuleItem key={idx} item={item} onClick={() => navigateOneCapsule(item?.capsule_serial)} />)
                 }
               </div>
+              <div>
               <Pagination
                 currentPage={currentPage}
                 totalCount={pastCapsule?.pastCapsules?.length}
                 pageSize={PageSize}
                 onPageChange={page => setCurrentPage(page)}
               />
+              </div>
             </div>}
           </> : <EmptyState name={`Capsules`} />
         }

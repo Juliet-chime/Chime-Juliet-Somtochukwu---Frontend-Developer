@@ -36,6 +36,7 @@ export default getCapsulesSlice.reducer;
 
 // api call action
 export const fetchCapsule = (params = null) => (dispatch) => {
+  console.log(params,'parammm')
   dispatch(getCapsule());
   return makeAPICall({
     path: `/capsules`,

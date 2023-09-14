@@ -15,6 +15,8 @@ import EmptyState from "../assets/component/emptyState";
 import Loader from "../assets/component/loader";
 import { useNavigate } from "react-router-dom";
 import { fetchPastCapsule, getPastCapsuleSelector } from "../services/slice/capsule/pastCapsule";
+import CustomModal from "../assets/component/modal";
+import CapsuleModal from "../assets/component/modal/capsule/CapsuleModal";
 
 
 let PageSize = 10;
@@ -29,6 +31,8 @@ const Capsule = () => {
   const [type, setType] = useState('');
   const [status, setStatus] = useState('');
   const [launchDate, setLaunchDate] = useState('');
+  const [capsuleSerial, setCapsuleSerial] = useState('');
+  const [open, setOpen] = useState(false);
 
   const capsule = useSelector(getCapsuleSelector)
   const upcomingCapsule = useSelector(getUpcomingCapsuleSelector)
@@ -39,57 +43,21 @@ const Capsule = () => {
     console.log(e.target.value)
     const type = e.target.value
     setType(type)
-    // if(type==='all'){
-    //   dispatch(fetchCapsule())
-    // } else{
-    //   dispatch(fetchCapsule({type}))
-    // }
   }
 
   const onHandleStatus = (e) => {
     console.log(e.target.value)
     const status = e.target.value
     setStatus(status)
-    // if(status ==='all'){
-    //   dispatch(fetchCapsule())
-    // } else{
-    //   dispatch(fetchCapsule({status}))
-    // }
   }
-
-  // const onHandleDateChange = (date,e) => {
-  //   console.log({date, val: e})
-  //   // const newDate = new Date(date)
-  //   // console.log(newDate)
-  //   // console.log(new Date(date).toISOString())
-  //   // setDate(new Date(newDate))
-  // }
-
-
 
   const onHandleDateChange = (date) => {
-    console.log({date,})
     setLaunchDate(new Date(date))
-
-//     let x = (new Date(date)).getTimezoneOffset() * 60000; 
-//     let ddd=  new Date(date).getTime()
-// let localISOTime = (new Date(ddd - x)).toISOString();
-// let timeer = localISOTime
-
-// console.log({x,localISOTime,timeer,d:Date.now()})
-// console.log(new Date(date).getTimezoneOffset())
   }
-
-  // const original_launch = date.toISOString()
-
-  // console.log(original_launch)
-
-  // const original_launch = new Date(launchDate).toISOString()
-  // console.log(original_launch)
 
   if(launchDate){
      let x = (new Date(launchDate)).getTimezoneOffset() * 60000; 
-let dy=  new Date(launchDate).getTime()
+     let dy=  new Date(launchDate).getTime()
 //let localISOTime = (new Date(ddd - x)).toISOString();
 // let timeer = localISOTime
 
@@ -143,7 +111,9 @@ let dy=  new Date(launchDate).getTime()
   }
 
   const navigateOneCapsule = (id) => {
-    navigate(`/capsule/${id}`)
+    // navigate(`/capsule/${id}`)
+    setCapsuleSerial(id)
+    setOpen(true)
   }
   const [allCapsule] = useCurrentData(updatedCapsule(), currentPage, PageSize)
   const [pastCapsules] = useCurrentData(updatedPastCapsule(), currentPage, PageSize)
@@ -166,6 +136,11 @@ let dy=  new Date(launchDate).getTime()
   }, [dispatch])
 
   return (
+    <>
+    <CustomModal open={open}
+     onClose={()=>setOpen(false)}
+     modalBody={<CapsuleModal id={capsuleSerial}/>}
+     />
     <div className="w-[95%] xl:w-[85%] m-auto">
       <div className="bg-[#14171f] w-[100%] md:w-[65%] p-4 md:mx-auto mt-10 rounded-md grid grid-cols-2 md:grid-cols-4 gap-4">
         <div className="bg-[#040D12] rounded-md">
@@ -241,7 +216,7 @@ let dy=  new Date(launchDate).getTime()
         }
       </>
     </div>
-
+</>
   )
 }
 

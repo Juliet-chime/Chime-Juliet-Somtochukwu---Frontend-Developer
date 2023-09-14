@@ -15,12 +15,12 @@ const CapsuleItem = ({ item, ...props }) => {
       <div className='w-full h-[130px]'>
         <img src={imgSrc} alt="dragon" className='rounded-t-md h-full w-full' />
       </div>
-      <div className='flex justify-between p-3'>
-        <div>
+      <div className='p-2'>
+        <div className='grid grid-col-1 md:grid-cols-2 gap-1 md:gap-6 lg:gap-16'>
           <SpaceItem title={'Capsule_serial'} value={item?.capsule_serial} />
           <SpaceItem title={'Date launch'} value={parseDate(item?.original_launch, { separator: '/', iso: true })} />
         </div>
-        <div>
+        <div className='grid grid-col-1 md:grid-cols-2 gap-1 md:gap-6 lg:gap-16'>
           <SpaceItem title={'Type'} value={item?.type} />
           <SpaceItem title={'Status'} value={capitalizeFLetter(item?.status)} />
         </div>

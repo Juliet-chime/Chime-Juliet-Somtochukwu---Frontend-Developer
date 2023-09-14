@@ -1,6 +1,7 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 import SpaceItem from '../capsule/SpaceItem'
+import rocket from '../../image/rocket.jpg'
 
 const RocketItem = ({ item, ...props }) => {
   return (

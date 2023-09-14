@@ -43,26 +43,26 @@ const DetailCapsule = () => {
         </div>
         <div className='flex flex-col justify-center'>
           <div className='grid grid-cols-2 md:grid-cols-3 gap-4'>
-            
-              <SpaceItem title={'Capsule_serial'} value={capsule?.capsule_serial} />
-            
-           
-              <SpaceItem title={'Type'} value={capsule?.type} />
-            
-          
-              <SpaceItem title={'Landings'} value={capsule?.landings} />
-            
-           
-              <SpaceItem title={'Date launch'} value={parseDate(capsule?.original_launch, { separator: '/', iso: true })} />
-           
-           
-              <SpaceItem title={'Status'} value={capitalizeFLetter(capsule?.status)} />
-           
+
+            <SpaceItem title={'Capsule_serial'} value={capsule?.capsule_serial} />
+
+
+            <SpaceItem title={'Type'} value={capsule?.type} />
+
+
+            <SpaceItem title={'Landings'} value={capsule?.landings} />
+
+
+            <SpaceItem title={'Date launch'} value={parseDate(capsule?.original_launch, { separator: '/', iso: true })} />
+
+
+            <SpaceItem title={'Status'} value={capitalizeFLetter(capsule?.status)} />
+
           </div>
           {
-           capsule?.details !== null  ?  <div className='mt-4'>
-            <SpaceItem title={'Details'} value={capitalizeFLetter(capsule?.details)} />
-           </div>:null
+            capsule?.details !== null ? <div className='mt-4'>
+              <SpaceItem title={'Details'} value={capitalizeFLetter(capsule?.details)} />
+            </div> : null
           }
           <div>
             {capsule?.missions ? <>

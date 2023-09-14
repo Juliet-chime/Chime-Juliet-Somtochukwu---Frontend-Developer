@@ -13,7 +13,6 @@ import { sortData } from "../utils/dataFormat";
 import { fetchUpcomingCapsule, getUpcomingCapsuleSelector } from "../services/slice/capsule/upcomingCapsules";
 import EmptyState from "../assets/component/emptyState";
 import Loader from "../assets/component/loader";
-import { useNavigate } from "react-router-dom";
 import { fetchPastCapsule, getPastCapsuleSelector } from "../services/slice/capsule/pastCapsule";
 import CustomModal from "../assets/component/modal";
 import CapsuleModal from "../assets/component/modal/capsule/CapsuleModal";
@@ -25,7 +24,6 @@ let original_launch=''
 const Capsule = () => {
 
   const dispatch = useDispatch();
-  const navigate = useNavigate();
 
   const [currentPage, setCurrentPage] = useState(1);
   const [type, setType] = useState('');
@@ -40,13 +38,11 @@ const Capsule = () => {
   const totalCount = capsule?.capsules?.length
 
   const onHandleType = (e) => {
-    console.log(e.target.value)
     const type = e.target.value
     setType(type)
   }
 
   const onHandleStatus = (e) => {
-    console.log(e.target.value)
     const status = e.target.value
     setStatus(status)
   }
@@ -58,22 +54,11 @@ const Capsule = () => {
   if(launchDate){
      let x = (new Date(launchDate)).getTimezoneOffset() * 60000; 
      let dy=  new Date(launchDate).getTime()
-//let localISOTime = (new Date(ddd - x)).toISOString();
-// let timeer = localISOTime
-
     original_launch = new Date(dy - x).toISOString()
-    //new Date(launchDate).toISOString()
-     console.log(original_launch)
   }
 
   const onHandleSearch = async () => {
-
-    // if (type === 'all' || status === 'all') {
-    //   await dispatch(fetchCapsule())
-    // } else {
       await dispatch(fetchCapsule({ status, type,original_launch }))
-    // }
-
   }
 
   const updatedCapsule = () => {
@@ -111,10 +96,15 @@ const Capsule = () => {
   }
 
   const navigateOneCapsule = (id) => {
-    // navigate(`/capsule/${id}`)
     setCapsuleSerial(id)
     setOpen(true)
   }
+
+  const onClearDateFilter = () => {
+    setLaunchDate('')
+    original_launch=''
+  }
+
   const [allCapsule] = useCurrentData(updatedCapsule(), currentPage, PageSize)
   const [pastCapsules] = useCurrentData(updatedPastCapsule(), currentPage, PageSize)
 
@@ -151,12 +141,8 @@ const Capsule = () => {
         </div>
         <div className="bg-[#040D12] rounded-md">
         <CustomDatePicker selected={launchDate} value={launchDate} onChange={onHandleDateChange} placeholderText='Select a date' >
-          <button className="bg-[#14171f] p-2 rounded-sm text-[white] cursor-pointer font-semibold" onClick={()=>{
-            setLaunchDate('')
-            original_launch=''
-          }}>Clear filter</button>
+          <button className="bg-[#14171f] p-2 rounded-sm text-[white] cursor-pointer font-semibold" onClick={onClearDateFilter}>Clear filter</button>
         </CustomDatePicker>
-          {/* <CustomDatePicker selected={date} onSelect={onHandleDateChange} placeholder='select date' /> */}
         </div>
         <CustomButton text='Apply Filter' onClick={onHandleSearch} />
       </div>

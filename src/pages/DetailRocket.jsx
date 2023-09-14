@@ -13,8 +13,6 @@ const DetailRocket = () => {
     const rocket = useSelector(getOneRocketSelector)
     const {id} = useParams()
 
-    console.log(rocket)
-
     useEffect(() => {
         async function getOneRocket() {
           try {
@@ -27,7 +25,7 @@ const DetailRocket = () => {
         }
         getOneRocket()
       }, [dispatch, id])
-    console.log(id)
+
   return (
     <div className='p-5 lg:p-14 xl:p-20'>
     <TitleHeader title={`Rocket ${id}`} />
@@ -59,44 +57,6 @@ const DetailRocket = () => {
         }
       </div>
     </div>
-    {/* <div className='mt-20 grid grid-cols-1 md:grid-cols-2 gap-16'>
-      <div className=' h-72'>
-        <img src={imgSrc} alt='capsule' className='h-full w-full object-cover rounded-md' />
-      </div>
-      <div className='flex flex-col justify-center'>
-        <div className='grid grid-cols-2 md:grid-cols-3 gap-4'>
-          <div>
-            <SpaceItem title={'Capsule_serial'} value={capsule?.capsule_serial} />
-          </div>
-          <div>
-            <SpaceItem title={'Type'} value={capsule?.type} />
-          </div>
-          <div>
-            <SpaceItem title={'Landings'} value={capsule?.landings} />
-          </div>
-          <div>
-            <SpaceItem title={'Date launch'} value={parseDate(capsule?.original_launch, { separator: '/', iso: true })} />
-          </div>
-          <div>
-            <SpaceItem title={'Status'} value={capitalizeFLetter(capsule?.status)} />
-          </div>
-        </div>
-        {
-         capsule?.details !== null  ?  <div className='mt-4'>
-          <SpaceItem title={'Details'} value={capitalizeFLetter(capsule?.details)} />
-         </div>:null
-        }
-        <div>
-          {capsule?.missions ? <>
-
-            <h1 className='mb-2 mt-4 text-[12px] md:text-[20px] font-bold text-[#ffffff80]'>Misson</h1>
-            {
-              capsule?.missions?.map((item, idx) => <SpaceItem title={item.name} value={item?.flight} key={idx} />)
-            }
-          </> : null}
-        </div>
-      </div>
-    </div> */}
   </div>
   )
 }

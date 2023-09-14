@@ -7,7 +7,6 @@ import Loader from "../assets/component/loader";
 import Pagination from "../assets/component/pagination/CustomPagination";
 import EmptyState from "../assets/component/emptyState";
 import TitleHeader from "../assets/component/TitleHeader";
-import { useNavigate } from "react-router-dom";
 import CustomModal from "../assets/component/modal";
 import RocketModal from "../assets/component/modal/capsule/RocketModal";
 
@@ -16,7 +15,6 @@ let PageSize = 10;
 const Rocket = () => {
 
   const dispatch = useDispatch();
-  const navigate = useNavigate();
 
   const [rocketId, setRocketId] = useState('');
   const [open, setOpen] = useState(false);
@@ -27,10 +25,7 @@ const Rocket = () => {
 
 const [allRocket] = useCurrentData(rocket?.rockets, currentPage, PageSize)
 
-  console.log({jjd:rocket?.rockets,allRocket})
-
   const navigateOneRocket = (id) => {
-    // navigate(`/rocket/${id}`)
     setRocketId(id)
     setOpen(true)
   }

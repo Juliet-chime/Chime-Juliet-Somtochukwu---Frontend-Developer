@@ -2,6 +2,7 @@
 import { Link } from 'react-router-dom'
 import { navMenu } from '../../constant'
 import logo from '../image/logo.png'
+
 const Header = () => {
   return (
         <div className={`bg-banner bg-no-repeat bg-left-top object-cover w-full h-[600px] py-10 flex flex-col`}>

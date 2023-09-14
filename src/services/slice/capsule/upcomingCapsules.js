@@ -1,5 +1,5 @@
-import { createSlice } from "@reduxjs/toolkit";
-import makeAPICall from "../../apiUtils";
+import { createSlice } from '@reduxjs/toolkit';
+import makeAPICall from '../../apiUtils';
 
 const initialState = {
   loading: false,
@@ -8,7 +8,7 @@ const initialState = {
 };
 
 export const getUpcomingCapsulesSlice = createSlice({
-  name: "upcoming-capsule",
+  name: 'upcoming-capsule',
   initialState,
   reducers: {
     getUpcomingCapsule: (state = initialState) => {

@@ -1,9 +1,8 @@
 /* eslint-disable react/prop-types */
-import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
 
 const CustomDatePicker = (props) => {
-
   return (
     <DatePicker
       showIcon
@@ -14,8 +13,9 @@ const CustomDatePicker = (props) => {
       showMonthDropdown
       showYearDropdown
       dropdownMode="select"
-      {...props} />
+      {...props}
+    />
   );
-}
+};
 
-export default CustomDatePicker
+export default CustomDatePicker;

@@ -1,13 +1,9 @@
+const baseURL = import.meta.env.VITE_API_URL;
 
-const baseURL = import.meta.env.VITE_API_URL
-
-const makeAPICall = async (
-  { path, method = "GET", payload = null, params = null },
-  customConfigs
-) => {
+const makeAPICall = async ({ path, method = 'GET', payload = null, params = null }, customConfigs) => {
   const headers = {
-    Accept: "application/json, */*",
-    "Content-type": "application/json",
+    Accept: 'application/json, */*',
+    'Content-type': 'application/json',
   };
 
   const configs = {
@@ -45,15 +41,13 @@ const makeAPICall = async (
       if (!response.ok) {
         let errorMessage;
         if (data && data.messages) {
-          if (typeof data.messages === "string") {
+          if (typeof data.messages === 'string') {
             errorMessage = data.messages;
           } else if (Array.isArray(data.messages)) {
-            errorMessage = data.messages
-              .map(({ message, token_class }) => `${token_class}: ${message}`)
-              .join(", ");
+            errorMessage = data.messages.map(({ message, token_class }) => `${token_class}: ${message}`).join(', ');
           }
         } else {
-          errorMessage = "An unknown error occurred!";
+          errorMessage = 'An unknown error occurred!';
         }
 
         let error = new Error(errorMessage);

@@ -148,35 +148,37 @@ const Capsule = () => {
         modalBody={<CapsuleModal id={capsuleSerial} />}
       />
       <div className="w-[95%] xl:w-[85%] m-auto">
-        <DisplayCapsule
-          onTypeChange={onHandleType}
-          onStatusChange={onHandleStatus}
-          onDateChange={onHandleDateChange}
-          launchDate={launchDate}
-          onClearDateFilter={onClearDateFilter}
-          onHandleSearch={onFilterCapsule}
-        />
+        <div>
+          <DisplayCapsule
+            onTypeChange={onHandleType}
+            onStatusChange={onHandleStatus}
+            onDateChange={onHandleDateChange}
+            launchDate={launchDate}
+            onClearDateFilter={onClearDateFilter}
+            onHandleSearch={onFilterCapsule}
+          />
 
-        <>
-          <TitleHeader title='Discover Capsules' />
-          {
-            allCapsule.length > 0 ? <>
-              {capsule?.loading ? <Loader /> : <div>
-                <div className="grid grid-cols-2 max-[300px]:grid-cols-1 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 2xl:grid-cols-5 p-2 gap-3">
-                  {
-                    allCapsule.map((item, idx) => <CapsuleItem key={idx} item={item} onClick={() => showModal(item?.capsule_serial)} />)
-                  }
-                </div>
-                <Pagination
-                  currentPage={currentPage}
-                  totalCount={totalCount}
-                  pageSize={PageSize}
-                  onPageChange={page => setCurrentPage(page)}
-                />
-              </div>}
-            </> : <EmptyState name={`Capsules`} />
-          }
-        </>
+          <>
+            <TitleHeader title='Discover Capsules' />
+            {
+              allCapsule.length > 0 ? <>
+                {capsule?.loading ? <Loader /> : <div>
+                  <div className="grid grid-cols-2 max-[300px]:grid-cols-1 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 2xl:grid-cols-5 p-2 gap-3">
+                    {
+                      allCapsule.map((item, idx) => <CapsuleItem key={idx} item={item} onClick={() => showModal(item?.capsule_serial)} />)
+                    }
+                  </div>
+                  <Pagination
+                    currentPage={currentPage}
+                    totalCount={totalCount}
+                    pageSize={PageSize}
+                    onPageChange={page => setCurrentPage(page)}
+                  />
+                </div>}
+              </> : <EmptyState name={`Capsules`} />
+            }
+          </>
+        </div>
 
 
         <>
@@ -190,37 +192,39 @@ const Capsule = () => {
           </> : null}
         </>
 
-        <DisplayCapsule
-          onTypeChange={(e) => setPastCapsuleType(e.target.value)}
-          onStatusChange={(e) => setPastCapsuleStatus(e.target.value)}
-          onDateChange={(date) => setPastCapsuleLaunchDate(new Date(date))}
-          launchDate={pastCapsuleLaunchDate}
-          onClearDateFilter={onClearPastCapsuleDateFilter}
-          onHandleSearch={onFilterPastCapsule}
-        />
+        <div>
+          <DisplayCapsule
+            onTypeChange={(e) => setPastCapsuleType(e.target.value)}
+            onStatusChange={(e) => setPastCapsuleStatus(e.target.value)}
+            onDateChange={(date) => setPastCapsuleLaunchDate(new Date(date))}
+            launchDate={pastCapsuleLaunchDate}
+            onClearDateFilter={onClearPastCapsuleDateFilter}
+            onHandleSearch={onFilterPastCapsule}
+          />
 
-        <>
-          <TitleHeader title='Past Capsules' />
-          {
-            pastCapsules.length > 0 ? <>
-              {capsule?.loading ? <Loader /> : <div>
-                <div className="grid grid-cols-2 max-[300px]:grid-cols-1 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 2xl:grid-cols-5 p-2 gap-3">
-                  {
-                    pastCapsules.map((item, idx) => <CapsuleItem key={idx} item={item} onClick={() => showModal(item?.capsule_serial)} />)
-                  }
-                </div>
-                <div>
-                  <Pagination
-                    currentPage={pastCapsulePage}
-                    totalCount={pastCapsule?.pastCapsules?.length}
-                    pageSize={PageSize}
-                    onPageChange={page => setPastCapsulePage(page)}
-                  />
-                </div>
-              </div>}
-            </> : <EmptyState name={`Capsules`} />
-          }
-        </>
+          <>
+            <TitleHeader title='Past Capsules' />
+            {
+              pastCapsules.length > 0 ? <>
+                {capsule?.loading ? <Loader /> : <div>
+                  <div className="grid grid-cols-2 max-[300px]:grid-cols-1 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 2xl:grid-cols-5 p-2 gap-3">
+                    {
+                      pastCapsules.map((item, idx) => <CapsuleItem key={idx} item={item} onClick={() => showModal(item?.capsule_serial)} />)
+                    }
+                  </div>
+                  <div>
+                    <Pagination
+                      currentPage={pastCapsulePage}
+                      totalCount={pastCapsule?.pastCapsules?.length}
+                      pageSize={PageSize}
+                      onPageChange={page => setPastCapsulePage(page)}
+                    />
+                  </div>
+                </div>}
+              </> : <EmptyState name={`Capsules`} />
+            }
+          </>
+        </div>
       </div>
     </>
   )

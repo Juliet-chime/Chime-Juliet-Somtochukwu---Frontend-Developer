@@ -1,5 +1,5 @@
-import { createSlice } from "@reduxjs/toolkit";
-import makeAPICall from "../../apiUtils";
+import { createSlice } from '@reduxjs/toolkit';
+import makeAPICall from '../../apiUtils';
 
 const initialState = {
   loading: false,
@@ -8,7 +8,7 @@ const initialState = {
 };
 
 export const getRocketSlice = createSlice({
-  name: "rockets",
+  name: 'rockets',
   initialState,
   reducers: {
     getRocket: (state = initialState) => {
@@ -35,16 +35,18 @@ export const getRocketSelector = (state) => state.rockets;
 export default getRocketSlice.reducer;
 
 // api call action
-export const fetchRocket = (params = null) => (dispatch) => {
-  dispatch(getRocket());
-  return makeAPICall({
-    path: `/rockets`,
-    params
-  })
-    .then((res) => {
-      dispatch(getRocketSuccess(res));
+export const fetchRocket =
+  (params = null) =>
+  (dispatch) => {
+    dispatch(getRocket());
+    return makeAPICall({
+      path: `/rockets`,
+      params,
     })
-    .catch((err) => {
-      dispatch(getRocketFailure(err));
-    });
-};
+      .then((res) => {
+        dispatch(getRocketSuccess(res));
+      })
+      .catch((err) => {
+        dispatch(getRocketFailure(err));
+      });
+  };

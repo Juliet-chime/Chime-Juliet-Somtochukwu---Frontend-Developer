@@ -1,5 +1,5 @@
-import { createSlice } from "@reduxjs/toolkit";
-import makeAPICall from "../../apiUtils";
+import { createSlice } from '@reduxjs/toolkit';
+import makeAPICall from '../../apiUtils';
 
 const initialState = {
   loading: false,
@@ -8,7 +8,7 @@ const initialState = {
 };
 
 export const getPastCapsulesSlice = createSlice({
-  name: "past-capsule",
+  name: 'past-capsule',
   initialState,
   reducers: {
     getPastCapsule: (state = initialState) => {
@@ -35,16 +35,18 @@ export const getPastCapsuleSelector = (state) => state.pastCapsule;
 export default getPastCapsulesSlice.reducer;
 
 // api call action
-export const fetchPastCapsule = (params = null) => (dispatch) => {
-  dispatch(getPastCapsule());
-  return makeAPICall({
-    path: `/capsules/past`,
-    params
-  })
-    .then((res) => {
-      dispatch(getPastCapsuleSuccess(res));
+export const fetchPastCapsule =
+  (params = null) =>
+  (dispatch) => {
+    dispatch(getPastCapsule());
+    return makeAPICall({
+      path: `/capsules/past`,
+      params,
     })
-    .catch((err) => {
-      dispatch(getPastCapsuleFailure(err));
-    });
-};
+      .then((res) => {
+        dispatch(getPastCapsuleSuccess(res));
+      })
+      .catch((err) => {
+        dispatch(getPastCapsuleFailure(err));
+      });
+  };

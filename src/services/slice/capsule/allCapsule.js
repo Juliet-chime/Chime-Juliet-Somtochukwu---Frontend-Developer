@@ -1,5 +1,5 @@
-import { createSlice } from "@reduxjs/toolkit";
-import makeAPICall from "../../apiUtils";
+import { createSlice } from '@reduxjs/toolkit';
+import makeAPICall from '../../apiUtils';
 
 const initialState = {
   loading: false,
@@ -8,7 +8,7 @@ const initialState = {
 };
 
 export const getCapsulesSlice = createSlice({
-  name: "capsule",
+  name: 'capsule',
   initialState,
   reducers: {
     getCapsule: (state = initialState) => {
@@ -35,16 +35,18 @@ export const getCapsuleSelector = (state) => state.capsules;
 export default getCapsulesSlice.reducer;
 
 // api call action
-export const fetchCapsule = (params = null) => (dispatch) => {
-  dispatch(getCapsule());
-  return makeAPICall({
-    path: `/capsules`,
-    params
-  })
-    .then((res) => {
-      dispatch(getCapsuleSuccess(res));
+export const fetchCapsule =
+  (params = null) =>
+  (dispatch) => {
+    dispatch(getCapsule());
+    return makeAPICall({
+      path: `/capsules`,
+      params,
     })
-    .catch((err) => {
-      dispatch(getCapsuleFailure(err));
-    });
-};
+      .then((res) => {
+        dispatch(getCapsuleSuccess(res));
+      })
+      .catch((err) => {
+        dispatch(getCapsuleFailure(err));
+      });
+  };

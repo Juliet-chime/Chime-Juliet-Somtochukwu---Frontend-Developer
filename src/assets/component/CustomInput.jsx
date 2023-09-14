@@ -5,7 +5,7 @@ const CustomInput = (props) => {
   return (
     <div className="">
       {!!label && <label className={labelstyle}>{label}</label>}
-      <input {...props} className="border-0 bg-transparent outline-none h-full w-full"/>
+      <input {...props} className="border-0 bg-transparent outline-none h-full w-full" />
     </div>
   );
 };

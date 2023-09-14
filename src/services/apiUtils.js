@@ -56,7 +56,7 @@ const makeAPICall = async (
           errorMessage = "An unknown error occurred!";
         }
 
-         let error = new Error(errorMessage);
+        let error = new Error(errorMessage);
         return Promise.reject(error);
       }
       return data;

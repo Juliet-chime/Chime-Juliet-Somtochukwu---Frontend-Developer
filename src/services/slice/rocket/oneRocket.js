@@ -35,18 +35,19 @@ export const getOneRocketSelector = (state) => state.rocket.rocket;
 export default getOneRocketSlice.reducer;
 
 // api call action
-export const fetchOneRocket = (rocket_id,params=null) => {
-    return (dispatch) => {
-  dispatch(getOneRocket());
-  return makeAPICall({
-    path: `/rockets/${rocket_id}`,
-    params
-  })
-    .then((res) => {
-      dispatch(getOneRocketSuccess(res));
+export const fetchOneRocket = (rocket_id, params = null) => {
+  return (dispatch) => {
+    dispatch(getOneRocket());
+    return makeAPICall({
+      path: `/rockets/${rocket_id}`,
+      params
     })
-    .catch((err) => {
-      dispatch(getOneRocketFailure(err));
-    });
-}};
+      .then((res) => {
+        dispatch(getOneRocketSuccess(res));
+      })
+      .catch((err) => {
+        dispatch(getOneRocketFailure(err));
+      });
+  }
+};
 

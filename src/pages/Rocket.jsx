@@ -23,9 +23,9 @@ const Rocket = () => {
 
   const [currentPage, setCurrentPage] = useState(1);
 
-const [allRocket] = useCurrentData(rocket?.rockets, currentPage, PageSize)
+  const [allRocket] = useCurrentData(rocket?.rockets, currentPage, PageSize)
 
-  const navigateOneRocket = (id) => {
+  const showModal = (id) => {
     setRocketId(id)
     setOpen(true)
   }
@@ -33,44 +33,44 @@ const [allRocket] = useCurrentData(rocket?.rockets, currentPage, PageSize)
   useEffect(() => {
     async function getRocket() {
       try {
-          await dispatch(fetchRocket())
+        await dispatch(fetchRocket())
       } catch (e) {
         console.log(e)
       }
     }
     getRocket()
   }, [dispatch])
- 
- 
+
+
   return (
     <>
-    <CustomModal
-    open={open}
-    onClose={()=>setOpen(false)}
-    modalBody={<RocketModal id={rocketId}/>}
-    />
-    < div className="w-[95%] xl:w-[85%] m-auto">
-      <>
-        <TitleHeader title='Discover Rockets' />
-        {
-          allRocket.length > 0 ? <>
-            {rocket?.loading ? <Loader /> : <div>
-              <div className="grid grid-cols-2 max-[300px]:grid-cols-1 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 p-2 gap-3">
-                {
-                  allRocket.map((item, idx) => <RocketItem key={idx} item={item} onClick={() => navigateOneRocket(item?.rocket_id)}/>)
-                }
-              </div>
-              <Pagination
-                currentPage={currentPage}
-                totalCount={rocket?.rockets.length}
-                pageSize={PageSize}
-                onPageChange={page => setCurrentPage(page)}
-              />
-            </div>}
-          </> : <EmptyState name={`Rockets`} />
-        }
-      </>
-    </div>
+      <CustomModal
+        open={open}
+        onClose={() => setOpen(false)}
+        modalBody={<RocketModal id={rocketId} />}
+      />
+      < div className="w-[95%] xl:w-[85%] m-auto">
+        <>
+          <TitleHeader title='Discover Rockets' />
+          {
+            allRocket.length > 0 ? <>
+              {rocket?.loading ? <Loader /> : <div>
+                <div className="grid grid-cols-2 max-[300px]:grid-cols-1 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 p-2 gap-3">
+                  {
+                    allRocket.map((item, idx) => <RocketItem key={idx} item={item} onClick={() => showModal(item?.rocket_id)} />)
+                  }
+                </div>
+                <Pagination
+                  currentPage={currentPage}
+                  totalCount={rocket?.rockets.length}
+                  pageSize={PageSize}
+                  onPageChange={page => setCurrentPage(page)}
+                />
+              </div>}
+            </> : <EmptyState name={`Rockets`} />
+          }
+        </>
+      </div>
     </>
   )
 }

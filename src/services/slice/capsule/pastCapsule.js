@@ -35,10 +35,11 @@ export const getPastCapsuleSelector = (state) => state.pastCapsule;
 export default getPastCapsulesSlice.reducer;
 
 // api call action
-export const fetchPastCapsule = () => (dispatch) => {
+export const fetchPastCapsule = (params = null) => (dispatch) => {
   dispatch(getPastCapsule());
   return makeAPICall({
     path: `/capsules/past`,
+    params
   })
     .then((res) => {
       dispatch(getPastCapsuleSuccess(res));

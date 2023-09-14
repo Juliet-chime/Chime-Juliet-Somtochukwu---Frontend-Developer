@@ -11,7 +11,7 @@ export const capsuleType = [
 ]
 
 export const capsuleStatus = [
-   { value: '', label: 'All' },
+    { value: '', label: 'All' },
     { value: 'active', label: 'Active' },
     { value: 'destroyed', label: 'Destroyed' },
     { value: 'unknown', label: 'Unknown' },

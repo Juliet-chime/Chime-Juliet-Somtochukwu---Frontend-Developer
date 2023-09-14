@@ -35,21 +35,22 @@ export const getOneCapsuleSelector = (state) => state.capsule.capsule;
 export default getOneCapsuleSlice.reducer;
 
 // api call action
-export const fetchOneCapsule = (capsule_serial,params=null) => {
-    console.log("lll")
-    return (dispatch) => {
-  dispatch(getOneCapsule());
-  return makeAPICall({
-    path: `/capsules/${capsule_serial}`,
-    params
-  })
-    .then((res) => {
-      dispatch(getOneCapsuleSuccess(res));
+export const fetchOneCapsule = (capsule_serial, params = null) => {
+  console.log("lll")
+  return (dispatch) => {
+    dispatch(getOneCapsule());
+    return makeAPICall({
+      path: `/capsules/${capsule_serial}`,
+      params
     })
-    .catch((err) => {
-      dispatch(getOneCapsuleFailure(err));
-    });
-}};
+      .then((res) => {
+        dispatch(getOneCapsuleSuccess(res));
+      })
+      .catch((err) => {
+        dispatch(getOneCapsuleFailure(err));
+      });
+  }
+};
 
 // const fn = fetchCapsule("")
 // fn()

@@ -6,6 +6,6 @@ import Rocket from "./pages/Rocket";
 export const routes = [
     { path: '/', component: Capsule },
     { path: '/rocket', component: Rocket },
-    { path: '/capsule/:id', component:DetailCapsule },
-    {path:'/rocket/:id', component:DetailRocket}
+    { path: '/capsule/:id', component: DetailCapsule },
+    { path: '/rocket/:id', component: DetailRocket }
 ]

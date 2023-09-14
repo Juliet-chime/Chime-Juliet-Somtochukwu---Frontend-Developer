@@ -12,7 +12,7 @@ const rootReducer = combineReducers({
     capsule: getOneCapsuleReducer,
     pastCapsule: getPastCapsulesReducer,
     rockets: getRocketReducer,
-    rocket:getOneRocketReducer
+    rocket: getOneRocketReducer
 })
 
 export default rootReducer

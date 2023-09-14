@@ -32,7 +32,7 @@ const CustomModal = ({
     <>
       {open && (
         <div className='fixed top-0 left-0 w-full h-full bg-[rgba(0,0,0,0.8)] z-[999999]' ref={modalref} onClick={closeModal}>
-          <div className='min-w-[100%] md:min-w-[80%] max-w-[100%] md:max-w-[90%] h-auto max-h-[80%] flex flex-col bg-[#040D12] shadow-[4px 8px 25px rgba(0, 0, 0, 0.5] fixed top-[50%] left-[50%] z-[999999999] -translate-y-[50%] -translate-x-[50%] rounded-[4px] p-2 md:p-10 overflow-y-scroll no-scrollbar' >
+          <div className='min-w-[100%] md:min-w-[80%] max-w-[100%] md:max-w-[90%] h-auto max-h-[80%] flex flex-col bg-[#040D12] shadow-[4px 8px 25px rgba(0, 0, 0, 0.5] fixed top-[50%] left-[50%] z-[999999999] -translate-y-[50%] -translate-x-[50%] rounded-[4px] p-2 md:p-10 overflow-y-scroll no-scrollbar transition-all duration-500' >
             <div className='flex items-center justify-end'>
               <div className='w-[25px] h-[25px] border text-[15px] flex justify-center items-center cursor-pointer rounded-full bg-[white] text-[black]' onClick={onClose}><FaTimes /></div>
             </div>
@@ -53,4 +53,4 @@ const CustomModal = ({
   )
 }
 
-export default CustomModal
+export default CustomModal 

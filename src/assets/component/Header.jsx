@@ -1,10 +1,14 @@
 import { Link } from 'react-router-dom';
 import { navMenu } from '../../constant';
 import logo from '../image/logo.png';
+import bg from '../image/bg.jpg';
 
 const Header = () => {
   return (
-    <div className={`bg-banner bg-no-repeat bg-left-top object-cover w-full h-[600px] py-10 flex flex-col`}>
+    <div
+      style={{ background: `url(${bg})` }}
+      className={`bg-no-repeat bg-left-top object-cover w-full h-[600px] py-10 flex flex-col`}
+    >
       <div className="flex items-center justify-between pr-3 md:pr-40">
         <div className="h-[20px] w-[100px] md:w-[200px]">
           <img src={logo} alt="spacex-logo" className="w-full h-full object-cover" />
